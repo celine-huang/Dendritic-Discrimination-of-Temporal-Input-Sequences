@@ -74,14 +74,19 @@ objref vBoxShape,shplot,dumCC[numDum]
 {
 	// simulated recording sites
 	somaA {dumCC[0] = new IClamp(0.5)}
-	// exSyn = 128
+	// exSyn = 60 (distal)
+	//dendA5_0111111111111111100 {
+	//	dumCC[1] = new IClamp(0.908163)
+	//}
+	// exSyn = 128 (middle)
 	dendA5_0111111111111111100 {
 		dumCC[1] = new IClamp(0.112245)
 	}
-	// exSyn = 61
-	//dendA5_0111111111111111111 {
-	//	dumCC[1] = new IClamp(0.35714286)
+	// exSyn = 126 (proximal)
+	//dendA5_011111111111111110 {
+	//	dumCC[1] = new IClamp(0.214286)
 	//}
+
 	for m=1,numDum {
 		dumCC[m-1].dur = 0
 		dumCC[m-1].amp = 0
