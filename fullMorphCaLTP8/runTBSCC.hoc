@@ -190,19 +190,19 @@ forsec distTuft{
 }
 
 // DECLARE OBJECTS
-objref voltRecords[numSyn],voltACSF[numSyn],voltDrug[numSyn]
-objref nmdaRecords[numSyn],nmdaACSF[numSyn],nmdaDrug[numSyn]
-objref ogbRecords[numSyn],ogbACSF[numSyn],ogbDrug[numSyn]
-objref caiRecords[numSyn],caiACSF[numSyn],caiDrug[numSyn]	        
-objref calHRecords[numSyn],calHACSF[numSyn],calHDrug[numSyn]		
-objref pmpRecords[numSyn],pmpACSF[numSyn],pmpDrug[numSyn]
+objref voltRecords[numSyn],voltACSF[numSyn] // ,voltDrug[numSyn]
+objref nmdaRecords[numSyn],nmdaACSF[numSyn] // ,nmdaDrug[numSyn]
+objref ogbRecords[numSyn],ogbACSF[numSyn] // ,ogbDrug[numSyn]
+objref caiRecords[numSyn],caiACSF[numSyn] // ,caiDrug[numSyn]	        
+objref calHRecords[numSyn],calHACSF[numSyn] // ,calHDrug[numSyn]		
+objref pmpRecords[numSyn],pmpACSF[numSyn] // ,pmpDrug[numSyn]
 
 objref dendVolt
 dendVolt = new Vector()
 
-objref dendACSF,dendDrug
+objref dendACSF // ,dendDrug
 dendACSF = new Vector()
-dendDrug = new Vector()
+// dendDrug = new Vector()
 
 objref time
 time = new Vector()
@@ -210,11 +210,11 @@ time = new Vector()
 strdef strNMDAToRecord,recordNMDAExec
 
 // DECLARE OBJECTS; B SUFFIX DENOTES RANDOM LOCATIONS
-objref voltRecordsB[numScan],voltACSFB[numScan],voltDrugB[numScan]
-objref ogbRecordsB[numScan],ogbACSFB[numScan],ogbDrugB[numScan]
-objref caiRecordsB[numScan],caiACSFB[numScan],caiDrugB[numScan]
-objref calHRecordsB[numScan],calHACSFB[numScan],calHDrugB[numScan]
-objref pmpRecordsB[numScan],pmpACSFB[numScan],pmpDrugB[numScan]
+objref voltRecordsB[numScan],voltACSFB[numScan] // ,voltDrugB[numScan]
+objref ogbRecordsB[numScan],ogbACSFB[numScan] // ,ogbDrugB[numScan]
+objref caiRecordsB[numScan],caiACSFB[numScan] // ,caiDrugB[numScan]
+objref calHRecordsB[numScan],calHACSFB[numScan] // ,calHDrugB[numScan]
+objref pmpRecordsB[numScan],pmpACSFB[numScan] // ,pmpDrugB[numScan]
 
 strdef curSect                                  
 strdef strVoltToRecord,recordVoltExec
@@ -223,10 +223,9 @@ strdef strCaiToRecord,recordCaiExec
 strdef strCalHToRecord,recordCalHExec		
 strdef strPmpToRecord,recordPmpExec
 
-
 // set voltages to record
 {
-	dendVolt.record(&dendA5_01111111111111.v(0.5))     // recording site at the trunk
+	dendVolt.record(&somaA.v(0.5))     // recording site at the trunk
 }
 
 {
@@ -369,7 +368,7 @@ strdef strPmpToRecord,recordPmpExec
 // CL IS THE DUMMY ARGUMENT FOR THE COLOR OF PLOTS TO BE MADE
 ////////////////////////////////////////////////////////////////////////////////
 
-
+/*
 {
 	// SIMULATING 10 nM TTX
 	ttxBath = 1
@@ -429,3 +428,4 @@ strdef strPmpToRecord,recordPmpExec
 		pmpDrugB[m-1].copy(pmpRecordsB[m-1])
 	}
 }
+*/

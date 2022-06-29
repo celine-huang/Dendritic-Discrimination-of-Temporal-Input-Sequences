@@ -13,7 +13,7 @@
 // DECLARE PARAMETERS
 {
 	tstop = 250
-	ppStim.APinburst = 4
+	ppStim.APinburst = 0
 	tBaseline = 20
 	ppStim.t01 = tBaseline	// Time for baseline
 }

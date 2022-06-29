@@ -161,7 +161,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
 #endif
   hoc_register_prop_size(_mechtype, 6, 0);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 id C:/Users/Celine/Dropbox/Desktop/Celine/Lab/NEURON/fullMorphCaLTP8_sample_code/fullMorphCaLTP8/id.mod\n");
+ 	ivoc_help("help ?1 id C:/Users/Celine/Dropbox/Desktop/Celine/Lab/NEURON/fullMorphCaLTP8_five_synapses_extended/fullMorphCaLTP8/id.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }

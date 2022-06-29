@@ -291,11 +291,41 @@ proc initchannels(){
 		
 		nmda[m-1].tau1 = 1//10//5
 		nmda[m-1].tau2 = 50//500//250 
+
+		ncAMPA[m-1].weight = 0  // ampaWeight
+		ncNMDA[m-1].weight = 0  // nmdaWeight
 		
-		ncAMPA[m-1].weight = ampaWeight
-		ncNMDA[m-1].weight = nmdaWeight
+		if (m==148 || m==85 || m==70 || m==69 || m==140) {
+			ncAMPA[m-1].weight = ampaWeight
+			ncNMDA[m-1].weight = nmdaWeight
+		}
+
 		ncAMPA[m-1].delay = 0
 		ncNMDA[m-1].delay = 0
+
+		if (m == 148) {
+			ncAMPA[m-1].delay = 160
+			ncNMDA[m-1].delay = 160
+		}
+		if (m == 85) {
+			ncAMPA[m-1].delay = 120
+			ncNMDA[m-1].delay = 120
+		}
+		if (m == 70) {
+			ncAMPA[m-1].delay = 80
+			ncNMDA[m-1].delay = 80
+		}
+		if (m == 69) {
+			ncAMPA[m-1].delay = 40
+			ncNMDA[m-1].delay = 40
+		}
+		if (m == 140) {
+			ncAMPA[m-1].delay = 0
+			ncNMDA[m-1].delay = 0
+		}
 		
 	}
 }
+
+
+// (distal->proximal) m-1 = 147, 84, 69, 68, 139
