@@ -92,7 +92,6 @@ for m=1,numScan{
 }
 
 
-
 curScan = 1
 forsec distTuft{
 	for (x) {
@@ -104,7 +103,6 @@ forsec distTuft{
 		//}
 	}
 }
-
 
 
 // GENERATE VECTORS FOR NON-SYNAPTIC SEGMENTS
@@ -167,7 +165,6 @@ randDistsSortY = new Vector()
 
 
 
-
 ////////////////////////////////////////////////////////////////////////////////
 //
 // DO A COMPREHENSIVE ANALYSIS OF PROPERTIES ACROSS THE MEMBRANE OVER THE
@@ -191,11 +188,13 @@ forsec distTuft{
 
 // DECLARE OBJECTS
 objref voltRecords[numSyn],voltACSF[numSyn] // ,voltDrug[numSyn]
+/*
 objref nmdaRecords[numSyn],nmdaACSF[numSyn] // ,nmdaDrug[numSyn]
 objref ogbRecords[numSyn],ogbACSF[numSyn] // ,ogbDrug[numSyn]
 objref caiRecords[numSyn],caiACSF[numSyn] // ,caiDrug[numSyn]	        
 objref calHRecords[numSyn],calHACSF[numSyn] // ,calHDrug[numSyn]		
 objref pmpRecords[numSyn],pmpACSF[numSyn] // ,pmpDrug[numSyn]
+*/
 
 objref dendVolt
 dendVolt = new Vector()
@@ -207,35 +206,41 @@ dendACSF = new Vector()
 objref time
 time = new Vector()
 
-strdef strNMDAToRecord,recordNMDAExec
+// strdef strNMDAToRecord,recordNMDAExec
 
 // DECLARE OBJECTS; B SUFFIX DENOTES RANDOM LOCATIONS
 objref voltRecordsB[numScan],voltACSFB[numScan] // ,voltDrugB[numScan]
+/*
 objref ogbRecordsB[numScan],ogbACSFB[numScan] // ,ogbDrugB[numScan]
 objref caiRecordsB[numScan],caiACSFB[numScan] // ,caiDrugB[numScan]
 objref calHRecordsB[numScan],calHACSFB[numScan] // ,calHDrugB[numScan]
 objref pmpRecordsB[numScan],pmpACSFB[numScan] // ,pmpDrugB[numScan]
+*/
 
 strdef curSect                                  
 strdef strVoltToRecord,recordVoltExec
+/*
 strdef strOGBToRecord,recordOGBExec
 strdef strCaiToRecord,recordCaiExec             
 strdef strCalHToRecord,recordCalHExec		
 strdef strPmpToRecord,recordPmpExec
+*/
 
 // set voltages to record
 {
-	dendVolt.record(&somaA.v(0.5))     // recording site at the trunk
+	dendVolt.record(&somaA.v(0.5))     // recording site at the soma
 }
 
 {
 	for m=1,numSyn{
 		voltRecords[m-1] = new Vector()
+/*
 		nmdaRecords[m-1] = new Vector()
 		ogbRecords[m-1] = new Vector()
 		caiRecords[m-1] = new Vector()
 		calHRecords[m-1] = new Vector()
 		pmpRecords[m-1] = new Vector()
+*/
 		
 		curSect = inputSecs[m-1].s
 		curSeg = inputSegs.x[m-1]
@@ -247,6 +252,7 @@ strdef strPmpToRecord,recordPmpExec
 		
 		// nmda called after initchannels() call; see note after initchannels() below
 		
+/*
 		// record [Ca]OGB
 		sprint(strOGBToRecord,"%s%s%s%g%s","&",curSect,".CaIndicator_cdp[0](",curSeg,")")
 		sprint(recordOGBExec,"%s%d%s%s%s","ogbRecords[",m-1,"].record(",strOGBToRecord,")")
@@ -266,14 +272,17 @@ strdef strPmpToRecord,recordPmpExec
 		sprint(strPmpToRecord,"%s%s%s%g%s","&",curSect,".ica_pmp_cdp(",curSeg,")")
 		sprint(recordPmpExec,"%s%d%s%s%s","pmpRecords[",m-1,"].record(",strPmpToRecord,")")
 		execute(recordPmpExec)
+*/
 	}
 	
 	for m=1,numScan{
 		voltRecordsB[m-1] = new Vector()
+/*
 		ogbRecordsB[m-1] = new Vector()
 		caiRecordsB[m-1] = new Vector()
 		calHRecordsB[m-1] = new Vector()
 		pmpRecordsB[m-1] = new Vector()
+*/
 		
 		curSect = randSecs[m-1].s
 		curSeg = randSegs.x[m-1]
@@ -283,6 +292,7 @@ strdef strPmpToRecord,recordPmpExec
 		sprint(recordVoltExec,"%s%d%s%s%s","voltRecordsB[",m-1,"].record(",strVoltToRecord,")")
 		execute(recordVoltExec)
 		
+/*
 		// record [Ca]OGB
 		sprint(strOGBToRecord,"%s%s%s%g%s","&",curSect,".CaIndicator_cdp[0](",curSeg,")")
 		sprint(recordOGBExec,"%s%d%s%s%s","ogbRecordsB[",m-1,"].record(",strOGBToRecord,")")
@@ -302,6 +312,7 @@ strdef strPmpToRecord,recordPmpExec
 		sprint(strPmpToRecord,"%s%s%s%g%s","&",curSect,".ica_pmp_cdp(",curSeg,")")
 		sprint(recordPmpExec,"%s%d%s%s%s","pmpRecordsB[",m-1,"].record(",strPmpToRecord,")")
 		execute(recordPmpExec)
+*/
 	}
 	
 	time.record(&t)
@@ -316,6 +327,7 @@ strdef strPmpToRecord,recordPmpExec
 {
 	ttxBath = 0
 	initchannels(ttxBath)
+/*
 	for m=1,numSyn{
 		// this block of code needs to be called after the initchannels()
 		// call; otherwise the pointers to point processes are destroyed
@@ -323,16 +335,17 @@ strdef strPmpToRecord,recordPmpExec
 		sprint(recordNMDAExec,"%s%d%s%s%s","nmdaRecords[",m-1,"].record(",strNMDAToRecord,")")
 		execute(recordNMDAExec)
 	}
-	
+*/	
 	
 	run()
 	
 	
-	dendACSF.copy(dendVolt)    // the recording at the apical trunk
+	dendACSF.copy(dendVolt)    // the recording at the soma
 	
 	for m=1,numSyn{
 		voltACSF[m-1] = new Vector()
 		voltACSF[m-1].copy(voltRecords[m-1])
+/*
 		nmdaACSF[m-1] = new Vector()
 		nmdaACSF[m-1].copy(nmdaRecords[m-1])
 		ogbACSF[m-1] = new Vector()
@@ -343,11 +356,13 @@ strdef strPmpToRecord,recordPmpExec
 		calHACSF[m-1].copy(calHRecords[m-1])
 		pmpACSF[m-1] = new Vector()
 		pmpACSF[m-1].copy(pmpRecords[m-1])
+*/
 	}
 		
 	for m=1,numScan{
 		voltACSFB[m-1] = new Vector()
 		voltACSFB[m-1].copy(voltRecordsB[m-1])
+/*
 		ogbACSFB[m-1] = new Vector()
 		ogbACSFB[m-1].copy(ogbRecordsB[m-1])
 		caiACSFB[m-1] = new Vector()
@@ -356,6 +371,7 @@ strdef strPmpToRecord,recordPmpExec
 		calHACSFB[m-1].copy(calHRecordsB[m-1])
 		pmpACSFB[m-1] = new Vector()
 		pmpACSFB[m-1].copy(pmpRecordsB[m-1])
+*/
 	}
 }
 

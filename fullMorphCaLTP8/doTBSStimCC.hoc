@@ -12,7 +12,7 @@
 
 // DECLARE PARAMETERS
 {
-	tstop = 250
+	tstop = 300
 	ppStim.APinburst = 0
 	tBaseline = 20
 	ppStim.t01 = tBaseline	// Time for baseline
@@ -24,9 +24,11 @@
 }
 
 // ANALYSE OUTPUT
+/*
 {	
 	xopen("analyseTBSCC.hoc")
 }
+*/
 
 // GENERATE FIGURES
 {	

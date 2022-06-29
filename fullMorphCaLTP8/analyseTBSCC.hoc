@@ -5,18 +5,21 @@
 // for unsorted responses
 
 objref voltACSFPeak // ,voltDrugPeak
-objref nmdaACSFPeak/*,nmdaDrugPeak*/,ogbACSFPeak // ,ogbDrugPeak
+// objref nmdaACSFPeak/*,nmdaDrugPeak*/,ogbACSFPeak // ,ogbDrugPeak
 
 voltACSFPeak = new Vector(numSyn)
+/*
 // voltDrugPeak = new Vector(numSyn)
 nmdaACSFPeak = new Vector(numSyn)
 // nmdaDrugPeak = new Vector(numSyn)
 ogbACSFPeak = new Vector(numSyn)
 // ogbDrugPeak = new Vector(numSyn)
+*/
 
 for m=1,numSyn{
 	voltACSFPeak.x[m-1] = voltACSF[m-1].max
 //	voltDrugPeak.x[m-1] = voltDrug[m-1].max
+/*
 	nmdaACSFPeak.x[m-1] = nmdaACSF[m-1].min
 //	nmdaDrugPeak.x[m-1] = nmdaDrug[m-1].min
 	
@@ -26,29 +29,33 @@ for m=1,numSyn{
 //	Peak = ogbDrug[m-1].max
 //	Baseline = ogbDrug[m-1].min
 //	ogbDrugPeak.x[m-1] = Peak - Baseline
+*/
 }
 
 // for sorted responses
 
 objref voltACSFPeakSort // ,voltDrugPeakSort
-objref nmdaACSFPeakSort/*,nmdaDrugPeakSort*/,ogbACSFPeakSort // ,ogbDrugPeakSort
+// objref nmdaACSFPeakSort/*,nmdaDrugPeakSort*/,ogbACSFPeakSort // ,ogbDrugPeakSort
 
 voltACSFPeakSort = new Vector(numSyn)
 // voltDrugPeakSort = new Vector(numSyn)
+/*
 nmdaACSFPeakSort = new Vector(numSyn)
 // nmdaDrugPeakSort = new Vector(numSyn)
 ogbACSFPeakSort = new Vector(numSyn)
 // ogbDrugPeakSort = new Vector(numSyn)
+*/
 
 for m=1,numSyn{
 	curInd = inputDistsSortX.x[m-1]             // retrieve original indices for making the responses sorted (sorted by distance)	                                            
-	
 	voltACSFPeakSort.x[m-1] = voltACSFPeak.x[curInd]
 //	voltDrugPeakSort.x[m-1] = voltDrugPeak.x[curInd]
+/*
 	nmdaACSFPeakSort.x[m-1] = nmdaACSFPeak.x[curInd]
 //	nmdaDrugPeakSort.x[m-1] = nmdaDrugPeak.x[curInd]
 	ogbACSFPeakSort.x[m-1] = ogbACSFPeak.x[curInd]
 //	ogbDrugPeakSort.x[m-1] = ogbDrugPeak.x[curInd]	
+*/
 }
 
 
@@ -57,7 +64,7 @@ for m=1,numSyn{
 /////////////////////////////////////////////////////////////////////////////
 
 // for unsorted responses
-
+/*
 objref voltACSFBPeak/*,voltDrugBPeak*/,ogbACSFBPeak // ,ogbDrugBPeak
 
 voltACSFBPeak = new Vector(numScan)
