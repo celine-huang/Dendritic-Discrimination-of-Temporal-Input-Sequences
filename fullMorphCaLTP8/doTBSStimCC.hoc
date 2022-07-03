@@ -24,11 +24,9 @@
 }
 
 // ANALYSE OUTPUT
-/*
 {	
 	xopen("analyseTBSCC.hoc")
 }
-*/
 
 // GENERATE FIGURES
 {	

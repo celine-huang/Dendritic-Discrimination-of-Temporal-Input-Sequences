@@ -16,6 +16,7 @@
 // RESPONSE AT AN EXAMPLARY DENDRITIC LOCATION
 ///////////////////////////////////////////////////////////////////////////////
 
+/*
 objref voltExGraph
 objref voltExBox
 
@@ -44,12 +45,13 @@ voltExBox = new HBox()                          // plot the response at exSyn
 	voltExBox.map("Example voltage",exLeft,0,300,300)
 	voltExGraph.exec_menu("View = plot")
 }
-
+*/
 
 ///////////////////////////////////////////////////////////////////////////////
 // RESPONSE AT THE SOMA
 ///////////////////////////////////////////////////////////////////////////////
 
+/*
 objref integralGraph
 integralGraph = new Graph()
 strdef dendIntegralLabel
@@ -62,12 +64,13 @@ strdef dendIntegralLabel
 	// label graphs
 	integralGraph.label(dendIntegralLabel)
 }
+*/
 
 ///////////////////////////////////////////////////////////////////////////////
 // SHAPE PLOT OF RECORDING LOCATIONS
 ///////////////////////////////////////////////////////////////////////////////
 
-numDum = 2
+numDum = 1  // 2
 objref vBoxShape,shplot,dumCC[numDum]
 
 // build dummy current clamps and demarcate locations
@@ -79,9 +82,9 @@ objref vBoxShape,shplot,dumCC[numDum]
 	//	dumCC[1] = new IClamp(0.908163)
 	//}
 	// exSyn = 128 (middle)
-	dendA5_0111111111111111100 {
-		dumCC[1] = new IClamp(0.112245)
-	}
+	//dendA5_0111111111111111100 {
+	//	dumCC[1] = new IClamp(0.112245)
+	//}
 	// exSyn = 126 (proximal)
 	//dendA5_011111111111111110 {
 	//	dumCC[1] = new IClamp(0.214286)
@@ -97,16 +100,18 @@ objref vBoxShape,shplot,dumCC[numDum]
 	shplot = new Shape()
 	
 	for m=1,numSyn {
-		if (m==148 || m==85 || m==70 || m==69 || m==140) {
-			shplot.point_mark(nmda[m-1],1,"O",6)
-		}
+		shplot.point_mark(nmda[m-1],1,"O",6)
 	}
 	
-	shplot.point_mark(dumCC[0],2,"O",12)
-	shplot.point_mark(dumCC[1],3,"O",12)
+	for m=0,4 {
+		shplot.point_mark(nmda[stimSyn.x[m]],3,"O",12)
+	}
 
-	shplot.label("Large circles: recording sites")
-	shplot.label("Black: Synapses")
+	shplot.point_mark(dumCC[0],2,"O",12)
+
+	shplot.label("Blue: Synapses")
+	shplot.label("Red: Recording site on the soma")
+	shplot.label("Black: Recording sites on dendrites")
 	shplot.exec_menu("Whole Scene")
 	shplot.flush()
 	vBoxShape.intercept(0)

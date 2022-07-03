@@ -245,7 +245,6 @@ proc initchannels(){
 	objref normNeurAreas,nnaInt
 	distNeurSum = neurAreas.sum()
 
-
 	normNeurAreas = new Vector()
 	nnaInt = new Vector()
 	
@@ -292,17 +291,20 @@ proc initchannels(){
 		nmda[m-1].tau1 = 1//10//5
 		nmda[m-1].tau2 = 50//500//250 
 
-		ncAMPA[m-1].weight = 0  // ampaWeight
-		ncNMDA[m-1].weight = 0  // nmdaWeight
-		
+		ncAMPA[m-1].weight = 0
+		ncNMDA[m-1].weight = 0
+
+/*
 		if (m==148 || m==85 || m==70 || m==69 || m==140) {
 			ncAMPA[m-1].weight = ampaWeight
 			ncNMDA[m-1].weight = nmdaWeight
 		}
+*/
 
 		ncAMPA[m-1].delay = 0
 		ncNMDA[m-1].delay = 0
 
+/*
 		if (m == 148) {
 			ncAMPA[m-1].delay = 160
 			ncNMDA[m-1].delay = 160
@@ -323,7 +325,7 @@ proc initchannels(){
 			ncAMPA[m-1].delay = 0
 			ncNMDA[m-1].delay = 0
 		}
-		
+*/		
 	}
 }
 

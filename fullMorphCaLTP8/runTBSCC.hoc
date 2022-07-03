@@ -186,19 +186,14 @@ forsec distTuft{
 }
 
 // DECLARE OBJECTS
-objref voltRecords[numSyn],voltACSF[numSyn]
+objref voltRecords[numSyn]
+objref stimSynACSF[5][numSyn]
 
-objref dendVolt
+objref dendVolt,dendStimSyn[5]
 dendVolt = new Vector()
-
-objref dendACSF
-dendACSF = new Vector()
 
 objref time
 time = new Vector()
-
-// DECLARE OBJECTS; B SUFFIX DENOTES RANDOM LOCATIONS
-objref voltRecordsB[numScan],voltACSFB[numScan] // ,voltDrugB[numScan]
 
 strdef curSect                                  
 strdef strVoltToRecord,recordVoltExec
@@ -211,25 +206,13 @@ strdef strVoltToRecord,recordVoltExec
 {
 	for m=1,numSyn{
 		voltRecords[m-1] = new Vector()
-		
+
 		curSect = inputSecs[m-1].s
 		curSeg = inputSegs.x[m-1]
 		
 		// set up recording devices
 		sprint(strVoltToRecord,"%s%s%s%g%s","&",curSect,".v(",curSeg,")")
 		sprint(recordVoltExec,"%s%d%s%s%s","voltRecords[",m-1,"].record(",strVoltToRecord,")")
-		execute(recordVoltExec)
-	}
-	
-	for m=1,numScan{
-		voltRecordsB[m-1] = new Vector()
-		
-		curSect = randSecs[m-1].s
-		curSeg = randSegs.x[m-1]
-
-		// set up recording devices
-		sprint(strVoltToRecord,"%s%s%s%g%s","&",curSect,".v(",curSeg,")")
-		sprint(recordVoltExec,"%s%d%s%s%s","voltRecordsB[",m-1,"].record(",strVoltToRecord,")")
 		execute(recordVoltExec)
 	}
 	
@@ -242,21 +225,49 @@ strdef strVoltToRecord,recordVoltExec
 // RUN SIMULATION IN CONTROL ACSF
 ////////////////////////////////////////////////////////////////////////////////
 
+objref stimSyn
+stimSyn = new Vector()
+stimSyn.insrt(0, 147, 84, 69, 68, 139)
+
+/*
+stimSyn.x[0] = 147
+stimSyn.x[1] = 84
+stimSyn.x[2] = 69
+stimSyn.x[3] = 68
+stimSyn.x[4] = 139
+*/
+
+/*
+objref test
+test = new File()
+
+test.wopen("test.txt")
+
+for n=0,4{
+	test.printf("%d\n",stimSyn.x[n])
+}
+
+test.close()
+*/
+
 {
 	ttxBath = 0
 	initchannels(ttxBath)
-	
-	run()
-	
-	dendACSF.copy(dendVolt)    // the recording at the soma
-	
-	for m=1,numSyn{
-		voltACSF[m-1] = new Vector()
-		voltACSF[m-1].copy(voltRecords[m-1])
-	}
+
+	for n=0,4{
+		ncAMPA[stimSyn.x[n]].weight = ampaWeight
+		ncNMDA[stimSyn.x[n]].weight = nmdaWeight
+		run()
 		
-	for m=1,numScan{
-		voltACSFB[m-1] = new Vector()
-		voltACSFB[m-1].copy(voltRecordsB[m-1])
+		dendStimSyn[n] = new Vector()	
+		dendStimSyn[n].copy(dendVolt)    // the recording at the soma
+	
+		for m=1,numSyn{
+			stimSynACSF[n][m-1] = new Vector()
+			stimSynACSF[n][m-1].copy(voltRecords[m-1])
+		}
+
+		ncAMPA[stimSyn.x[n]].weight = 0
+		ncNMDA[stimSyn.x[n]].weight = 0
 	}
 }
