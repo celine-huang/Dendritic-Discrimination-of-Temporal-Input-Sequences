@@ -2,7 +2,7 @@
 // PEAK ANALYSIS FOR SYNAPTIC LOCATIONS
 ///////////////////////////////////////////////////////////////////////////////
 
-// for unsorted responses
+// for single synapse responses
 
 objref stimSynACSFPeak[5],stimSynACSFBase[5]
 
@@ -25,6 +25,27 @@ for n=0,4{
 }
 
 
+// for random synapses responses
+
+objref randomSynACSFPeak[120],randomSynACSFBase[120]
+
+objref dendRandomSynPeak,dendRandomSynBase
+dendRandomSynPeak = new Vector(120)
+dendRandomSynBase = new Vector(120)
+
+for n=0,119{
+	randomSynACSFPeak[n] = new Vector(numSyn)
+	randomSynACSFBase[n] = new Vector(numSyn)
+	for m=1,numSyn{
+		randomSynACSFPeak[n].x[m-1] = randomSynACSF[n][m-1].max
+		randomSynACSFBase[n].x[m-1] = randomSynACSF[n][m-1].min
+	}
+}
+
+for n=0,119{
+	dendRandomSynPeak.x[n] = dendRandomSyn[n].max
+	dendRandomSynBase.x[n] = dendRandomSyn[n].min
+}
 
 //////////////////////////////////////////////////////////////////////////////
 // INTEGRAL ANALYSIS FOR SYNAPTIC LOCATIONS
@@ -35,7 +56,7 @@ for n=0,4{
 	load_file("getVoltageIntegral.hoc")  
 }
 	
-// for unsorted responses
+// for single synapse responses
 
 objref stimSynACSFInt[5]
 
@@ -54,6 +75,23 @@ for n=0,4{
 }
 
 
+// for random synapses responses
+
+objref randomSynACSFInt[120]
+
+objref dendRandomSynInt
+dendRandomSynInt = new Vector(120)
+
+for n=0,119{
+	randomSynACSFInt[n] = new Vector(numSyn)
+	for m=1,numSyn{
+		randomSynACSFInt[n].x[m-1] = getVoltageIntegral(randomSynACSF[n][m-1],dt,tBaseline,tstop)
+	}
+}
+
+for n=0,119{
+	dendRandomSynInt.x[n] = getVoltageIntegral(dendRandomSyn[n],dt,tBaseline,tstop)
+}
 
 //////////////////////////////////////////////////////////////////////////////
 // VARIANCE ANALYSIS FOR SYNAPTIC LOCATIONS
@@ -65,12 +103,16 @@ for n=0,4{
 // OUTPUT ANALYSIS RESULTS
 ///////////////////////////////////////////////////////////////////////////////
 
+// for single synapse responses
+
 objref f1
 f1 = new File()
 
-f1.wopen("dataSingleStim.csv")
+f1.wopen("dataSingleSyn.csv")
+f1.close()
 
 for n=0,4{
+	f1.aopen("dataSingleSyn.csv")
 	f1.printf("RUN%d\n",n)
 	f1.printf("\"\",")
 	for m=1,numSyn{
@@ -109,7 +151,61 @@ for n=0,4{
 
 	// VAR
 
+	f1.close()
 }
+
+
+// for random synapses responses
+
+objref f2
+f2 = new File()
+
+f2.wopen("dataRandomSyn.csv")
+f2.close()
+
+for n=0,119{
+	f2.aopen("dataRandomSyn.csv")
+	f2.printf("RUN%d\n",n)
+	f2.printf("\"\",")
+	for m=1,numSyn{
+		f2.printf("Exp2Syn[%d],",m-1)
+	}
+	f2.printf("Soma\n")
+	for i=1,time.size(){
+		f2.printf("TIME[%d],",i-1)
+		for m=1,numSyn{
+			f2.printf("%lf,",time.x[i-1])
+		}
+		f2.printf("%lf\n",time.x[i-1])
+	}
+	for i=1,randomSynACSF[n][0].size(){
+		f2.printf("VOLT[%d],",i-1)
+		for m=1,numSyn{
+			f2.printf("%lf,",randomSynACSF[n][m-1].x[i-1])
+		}
+		f2.printf("%lf\n",dendRandomSyn[n].x[i-1])
+	}
+	f2.printf("PEAK,")
+	for m=1,numSyn{
+		f2.printf("%lf,",randomSynACSFPeak[n].x[m-1])
+	}
+	f2.printf("%lf\n",dendRandomSynPeak.x[n])
+	f2.printf("BASE,")
+	for m=1,numSyn{
+		f2.printf("%lf,",randomSynACSFBase[n].x[m-1])
+	}
+	f2.printf("%lf\n",dendRandomSynBase.x[n])
+	f2.printf("INT,")
+	for m=1,numSyn{
+		f2.printf("%lf,",randomSynACSFInt[n].x[m-1])
+	}
+	f2.printf("%lf\n",dendRandomSynInt.x[n])
+
+	// VAR
+
+	f2.close()
+}
+
 
 /*
 f1.printf("Unsorted responses\tPEAK\tINTEGRAL\n\n")
@@ -121,5 +217,3 @@ for m=1,numSyn{
 	f1.printf("\n\n\t\t\t%d\t%lf\t%lf\n",m-1,voltACSFPeakSort.x[m-1],voltACSFIntSort.x[m-1])
 }
 */
-
-f1.close()

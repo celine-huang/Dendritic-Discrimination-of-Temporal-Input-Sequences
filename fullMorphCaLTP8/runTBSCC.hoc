@@ -186,10 +186,9 @@ forsec distTuft{
 }
 
 // DECLARE OBJECTS
-objref voltRecords[numSyn]
-objref stimSynACSF[5][numSyn]
+objref voltRecords[numSyn],stimSynACSF[5][numSyn],randomSynACSF[120][numSyn]
 
-objref dendVolt,dendStimSyn[5]
+objref dendVolt,dendStimSyn[5],dendRandomSyn[120]
 dendVolt = new Vector()
 
 objref time
@@ -237,27 +236,38 @@ stimSyn.x[3] = 68
 stimSyn.x[4] = 139
 */
 
-/*
 objref test
 test = new File()
-
-test.wopen("test.txt")
-
-for n=0,4{
-	test.printf("%d\n",stimSyn.x[n])
-}
-
+test.wopen("runtime.txt")
+runnum = 0
 test.close()
-*/
+
+// create objects for generating random sequences
+objref array,ct,permutationArray
+array = new Vector()
+array.insrt(0,1,2,3,4,5)
+arraySize = array.size()
+permutationArray = new Vector()
+permutationArray.append(array)
+ct = new Vector()
+ct.insrt(0,0,0,0,0,0)
 
 {
 	ttxBath = 0
 	initchannels(ttxBath)
 
+	// fire single synapse at different location (fixed firing time, modified synapse location)
+
 	for n=0,4{
 		ncAMPA[stimSyn.x[n]].weight = ampaWeight
 		ncNMDA[stimSyn.x[n]].weight = nmdaWeight
 		run()
+
+		// runtime monitor
+		test.aopen("runtime.txt")
+		test.printf("run %d\n", runnum)
+		runnum+=1
+		test.close()
 		
 		dendStimSyn[n] = new Vector()	
 		dendStimSyn[n].copy(dendVolt)    // the recording at the soma
@@ -270,4 +280,58 @@ test.close()
 		ncAMPA[stimSyn.x[n]].weight = 0
 		ncNMDA[stimSyn.x[n]].weight = 0
 	}
+
+	// fire multiple synapses in different sequences (fixed synapses locations, modified firing time sequences)
+
+	for n=0,4{
+		ncAMPA[stimSyn.x[n]].weight = ampaWeight
+		ncNMDA[stimSyn.x[n]].weight = nmdaWeight
+	}
+
+	// generate all possible permutations of firing sequences of 5 synapses (heap's algorithm)
+	i = 1
+	while (i<arraySize) {
+		if (ct.x[i]<i){
+			if (i%2 == 0){
+				temp = array.x[0]
+				array.x[0] = array.x[i]
+				array.x[i] = temp
+			}else{
+				temp = array.x[ct.x[i]]
+				array.x[ct.x[i]] = array.x[i]
+				array.x[i] = temp
+			}
+			permutationArray.append(array)
+			ct.x[i] += 1
+			i = 1
+		}else{
+			ct.x[i] = 0
+			i += 1
+		}
+	}
+
+	i = 0
+	for n=0,119 {
+		for m=0,4 {
+			ncAMPA[stimSyn.x[permutationArray.x[i]-1]].delay = 3*m
+			ncNMDA[stimSyn.x[permutationArray.x[i]-1]].delay = 3*m
+			i += 1
+		}
+		run()
+
+		// runtime monitor
+		test.aopen("runtime.txt")
+		test.printf("run %d\n", runnum)
+		runnum+=1
+		test.close()
+
+		dendRandomSyn[n] = new Vector()	
+		dendRandomSyn[n].copy(dendVolt)    // the recording at the soma
+		for m=1,numSyn{
+			randomSynACSF[n][m-1] = new Vector()
+			randomSynACSF[n][m-1].copy(voltRecords[m-1])
+		}
+	}	
 }
+
+
