@@ -109,6 +109,12 @@ objref f1
 f1 = new File()
 
 f1.wopen("dataSingleSyn.csv")
+
+for i=1,time.size(){
+	f1.printf("TIME[%d],",i-1)
+	f1.printf("%lf\n",time.x[i-1])
+}
+
 f1.close()
 
 for n=0,4{
@@ -119,13 +125,6 @@ for n=0,4{
 		f1.printf("Exp2Syn[%d],",m-1)
 	}
 	f1.printf("Soma\n")
-	for i=1,time.size(){
-		f1.printf("TIME[%d],",i-1)
-		for m=1,numSyn{
-			f1.printf("%lf,",time.x[i-1])
-		}
-		f1.printf("%lf\n",time.x[i-1])
-	}
 	for i=1,stimSynACSF[n][0].size(){
 		f1.printf("VOLT[%d],",i-1)
 		for m=1,numSyn{
@@ -161,6 +160,12 @@ objref f2
 f2 = new File()
 
 f2.wopen("dataRandomSyn.csv")
+
+for i=1,time.size(){
+	f2.printf("TIME[%d],",i-1)
+	f2.printf("%lf\n",time.x[i-1])
+}
+
 f2.close()
 
 for n=0,119{
@@ -171,13 +176,6 @@ for n=0,119{
 		f2.printf("Exp2Syn[%d],",m-1)
 	}
 	f2.printf("Soma\n")
-	for i=1,time.size(){
-		f2.printf("TIME[%d],",i-1)
-		for m=1,numSyn{
-			f2.printf("%lf,",time.x[i-1])
-		}
-		f2.printf("%lf\n",time.x[i-1])
-	}
 	for i=1,randomSynACSF[n][0].size(){
 		f2.printf("VOLT[%d],",i-1)
 		for m=1,numSyn{

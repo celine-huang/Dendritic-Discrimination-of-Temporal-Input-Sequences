@@ -238,7 +238,7 @@ stimSyn.x[4] = 139
 
 objref test
 test = new File()
-test.wopen("runtime.txt")
+test.wopen("test.txt")
 runnum = 0
 test.close()
 
@@ -264,7 +264,7 @@ ct.insrt(0,0,0,0,0,0)
 		run()
 
 		// runtime monitor
-		test.aopen("runtime.txt")
+		test.aopen("test.txt")
 		test.printf("run %d\n", runnum)
 		runnum+=1
 		test.close()
@@ -308,19 +308,25 @@ ct.insrt(0,0,0,0,0,0)
 			ct.x[i] = 0
 			i += 1
 		}
-	}
+	}	
 
-	i = 0
+	j = 0
 	for n=0,119 {
 		for m=0,4 {
-			ncAMPA[stimSyn.x[permutationArray.x[i]-1]].delay = 3*m
-			ncNMDA[stimSyn.x[permutationArray.x[i]-1]].delay = 3*m
-			i += 1
+			ncAMPA[stimSyn.x[permutationArray.x[j]-1]].delay = 3*m
+			ncNMDA[stimSyn.x[permutationArray.x[j]-1]].delay = 3*m
+
+			// print detailed index here
+			test.aopen("test.txt")
+			test.printf("j %d\tn %d\tm %d\tindex %d\n", j, n, m, stimSyn.x[permutationArray.x[j]-1])
+			test.close()
+
+			j += 1
 		}
 		run()
 
 		// runtime monitor
-		test.aopen("runtime.txt")
+		test.aopen("test.txt")
 		test.printf("run %d\n", runnum)
 		runnum+=1
 		test.close()
