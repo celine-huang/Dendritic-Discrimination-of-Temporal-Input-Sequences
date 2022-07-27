@@ -4,7 +4,6 @@
 IMPORT int nrnmpi_myid, nrn_nobanner_;
 
 extern void _calH_reg();
-extern void _cdp_reg();
 extern void _id_reg();
 extern void _kad_reg();
 extern void _kap_reg();
@@ -19,7 +18,6 @@ void modl_reg(){
 	fprintf(stderr, "Additional mechanisms from files\n");
 
 fprintf(stderr," calH.mod");
-fprintf(stderr," cdp.mod");
 fprintf(stderr," id.mod");
 fprintf(stderr," kad.mod");
 fprintf(stderr," kap.mod");
@@ -30,7 +28,6 @@ fprintf(stderr," spgen2.mod");
 fprintf(stderr, "\n");
     }
 _calH_reg();
-_cdp_reg();
 _id_reg();
 _kad_reg();
 _kap_reg();

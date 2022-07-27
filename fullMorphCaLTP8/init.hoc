@@ -31,7 +31,6 @@ proc initchannels(){
 	forall {
 		insert pas  g_pas=1/(Rm)  Ra=global_ra  e_pas=Vleak                   
 		insert id
-	 	insert cdp
 	}
 	
 	forall {
