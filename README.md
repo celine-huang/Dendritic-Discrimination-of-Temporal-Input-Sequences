@@ -5,15 +5,11 @@ This project is inspired by *Branco T, Clark BA, Häusser M (2010) Dendritic dis
 
 ## Model Basis
 
-The study builds on [ModelDB #184054](https://github.com/ModelDBRepository/184054), described in Kim et al. (2015). [^2] The model represents a biologically constrained multi-compartmental hippocampal CA1 pyramidal neuron.
+The study builds on [ModelDB #184054](https://modeldb.science/184054), described in Kim et al. (2015). [^2] The model represents a biologically constrained multi-compartmental hippocampal CA1 pyramidal neuron.
 
 ## Study Overview
 
 We investigated whether the CA1 neuron model can reproduce the temporal-order sensitivity phenomenon described in Branco et al. (2010) by stimulating the model with different input sequences and analyzing its outputs. This approach allows us to assess the model’s ability to reflect biologically observed phenomena, providing insight into dendritic computation in hippocampal neurons.
-
----
-
-## Footnotes
 
 [^1]: Branco, T., Clark, B. A., & Häusser, M. (2010). Dendritic discrimination of temporal input sequences in cortical neurons. *Science (New York, N.Y.)*, 329(5999), 1671–1675. [https://doi.org/10.1126/science.1189664](https://doi.org/10.1126/science.1189664)
 
