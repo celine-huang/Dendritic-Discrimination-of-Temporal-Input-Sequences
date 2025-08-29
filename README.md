@@ -1,11 +1,12 @@
 # Dendritic-Discrimination-of-Temporal-Input-Sequences
 
 ## Introduction
+
 This project is inspired by *Branco T, Clark BA, Häusser M (2010) Dendritic discrimination of temporal input sequences in cortical neurons. Science.*, which demonstrated that single dendrites of cortical pyramidal neurons exhibit sensitivity to the temporal sequence of synaptic activation. [^1]
 
 ## Model Basis
 
-The study builds on [ModelDB #184054](https://modeldb.science/184054), described in Kim et al. (2015). [^2] The model represents a biologically constrained multi-compartmental hippocampal CA1 pyramidal neuron.
+This study builds on [ModelDB #184054](https://github.com/ModelDBRepository/184054), described in Kim et al. (2015). [^2] The model represents a biologically constrained multi-compartmental hippocampal CA1 pyramidal neuron.
 
 ## Study Overview
 
